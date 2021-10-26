@@ -1,48 +1,34 @@
-// Элемент для вывода евро
-const EURviuw = document.querySelector('.eur')
-// Элемент для вывода доллара
-const USDviuw = document.querySelector('.usd')
-const eurInRub = document.querySelector('.eur-in-rub')
-const eurInput = document.querySelector('.eur-input')
-const usdInRub = document.querySelector('.usd-in-rub')
-const usdInput = document.querySelector('.usd-input')
+const valuteCourses = {};
+const elementUSD = document.querySelector('[data-value="USD"]')
+const elementEUR = document.querySelector('[data-value="EUR"]')
 
-// Объект валют
-const valute = {
-    EUR: "",
-    USD: ""
+const input = document.querySelector('#input')
+const result = document.querySelector('#result')
+const select = document.querySelector('#select')
+getCurrencies()
+
+async function getCurrencies () {
+	const response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js');
+	const data = await response.json();
+	const result = await data;
+	
+	valuteCourses.USD = result.Valute.USD;
+	valuteCourses.EUR = result.Valute.EUR;
+	console.log(valuteCourses)
+	// elementUSD.textContent = valuteCourses.USD.Value.toFixed(2);
+	// elementEUR.textContent = valuteCourses.EUR.Value.toFixed(2);
 }
- 
-// Делаем GET запрос на сервер 
-axios.get("https://www.cbr-xml-daily.ru/daily_json.js")
-    .then((res) => { // Получаем результат
-        // Берём евро
-        valute.EUR = res.data.Valute.EUR.Value
-        // Берём доллар
-        valute.USD = res.data.Valute.USD.Value
-        // Выводим евро
-        EURviuw.textContent = valute.EUR
-        // Выводим доллар
-        USDviuw.textContent = valute.USD
-    })
 
-		eurInput.addEventListener('change', () => {
-			if (!Number.isInteger(+eurInput.value)) {
-					eurInRub.textContent = "Вы ввели не число"
-			} else if (eurInput.value === '') {
-					eurInRub.textContent = 0
-			} else {
-					eurInRub.textContent = Math.round(+eurInput.value * valute.EUR) + " Руб"
-			}
-	})
-	
-	usdInput.addEventListener('change', () => {
-			if (!Number.isInteger(+usdInput.value)) {
-					usdInRub.textContent = "Вы ввели не число"
-			} else if (usdInput.value === '') {
-					usdInRub.textContent = 0
-			} else {
-					usdInRub.textContent = Math.round(+usdInput.value * valute.USD) + " Руб"
-			}
-	})
-	
+input.oninput = function() {
+	console.log('Changed!');
+	result.value = (parseFloat(input.value) / valuteCourses[select.value].Value).toFixed(2);
+}
+
+select.oninput = function() {
+	console.log('Changed!');
+	result.value = (parseFloat(input.value) / valuteCourses[select.value].Value).toFixed(2);
+}
+
+function converValue() {
+	result.value = (parseFloat(input.value) / valuteCourses[select.value].Value).toFixed(2);
+}

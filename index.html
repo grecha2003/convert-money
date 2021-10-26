@@ -12,29 +12,29 @@
 		<h1 class="header__text">Конвертер валют PRO</h1>
 	</div>
 	<div class="valute">
-		<p class="valute__eur">EUR <span class="valute__eur--modife">
+		<p class="valute__eur">RUB <span class="valute__eur--modife">
 		</span></p>
-		<p class="valute__text"><input type="text" class="valute__text--modife"></p>
+		<p class="valute__text"><input id="input" type="number" autofocus class="valute__text--modife"></p>
 		<p class="valute__arrows">
-			<img src="images/exchange-arrows.svg">
+			<img src="images/exchange-arrows.png">
 			<span class="valute__arrows--modife"></span></p>
 	</div>
-	<div class="convert">
-		<div class="convert-items">
-			<p>EUR-Евро</p>
-		</div>
-		<div class="convert-items">
-			<p>USD-Доллар</p>
-		</div>
-	</div>
+	<img class="select__img--one" src="images/double-arrow.png">
+	<select id="select" class="convert">
+		<option value="USD">USD - Доллар</option>
+		<option value="EUR">EUR - Евро</option>
+	</select>
+	<!-- <img class="select__img--two" src="images/double-arrow.png">
+	<select id="select" class="convert convert__two">
+		<option data-value="USD">USD - Доллар</option>
+		<option data-value="EUR">EUR - Евро</option>
+	</select> -->
 	<div class="convertation">
-		<p>1.23 USD<span class="convertation__valute"></span></p>
+		<input id="result" type="number" id="name" class="form__control">
 	</div>
 	<div class="data">
 		<p>25 Октября, 2021<span class="data__name"></span></p>
 	</div>
-	<script src="Gruntfile.js"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="js/script.js"></script> -->
+<script src="js/script.js"></script>
 </body>
 </html>
